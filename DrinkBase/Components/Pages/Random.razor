@@ -1,0 +1,25 @@
+﻿@page "/Random"
+@using DrinkBase.Models
+@using DrinkBase.Services
+@inject CocktailDbService _cocktailDbService
+
+@if (_drink == null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
+    <h2>@_drink.StrDrink</h2>
+    <p>Category: @_drink.StrCategory</p>
+    <p>@_drink.StrInstructions</p>   
+}
+
+@code{
+    private Drink? _drink = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _drink = await _cocktailDbService.GetRandomDrink();
+    }
+
+}
